@@ -1,13 +1,14 @@
-import logo from './logo.svg';
 import './App.css';
+import Landing from './components/Landing';
 import Navbar from './components/Navbar';
 
 function App() {
   return (
-    <div className="App">
-      <Navbar />
-      {"Movie Hub"}
+      <div className="App">
+        <Navbar />
+        <Landing />
     </div>
+
   );
 }
 
