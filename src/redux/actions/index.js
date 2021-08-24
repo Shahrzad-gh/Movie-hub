@@ -1,7 +1,7 @@
 import { searchConstants } from './Types'
 import axios from "axios";
 
-const APIKEY = "51108daeac3575a1c06f7c1391cae48e"
+const APIKEY = "APIKEY"
 
 export const fetchPopular = () => {
   return async (dispatch) => {
