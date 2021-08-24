@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {useDispatch, useSelector} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { makeStyles } from '@material-ui/core/styles';
 import ImageList from '@material-ui/core/ImageList';
@@ -7,6 +7,7 @@ import ImageListItem from '@material-ui/core/ImageListItem';
 import ImageListItemBar from '@material-ui/core/ImageListItemBar';
 import IconButton from '@material-ui/core/IconButton';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
+
 import { fetchPopular } from "../redux/actions/index"
 
 const useStyles = makeStyles((theme) => ({
@@ -37,20 +38,22 @@ const useStyles = makeStyles((theme) => ({
 function Landing() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const movies = useSelector(state => state.movies)
+  const search = useSelector(state => state.search)
 
   useEffect(() => {
-    dispatch(fetchPopular)
+    dispatch(fetchPopular())
   }, [])
+
+  console.log(search.popular)
 
   return (
     <div className={classes.root}>
       <div>
       <div className={classes.root}>
-      <ImageList className={classes.imageList} cols={2.5}>
-        {/* {movies.popular.map((item) => (
-          <ImageListItem key={item.img}>
-            <img src={item.img} alt={item.title} />
+      <ImageList className={classes.imageList} cols={6.5}>
+        {search.popular.map((item) => (
+          <ImageListItem className={classes.scroll} key={item.img}>
+            <img src={`https://image.tmdb.org/t/p/w500${item.backdrop_path}`}/>
             <ImageListItemBar
               title={item.title}
               classes={{
@@ -64,12 +67,13 @@ function Landing() {
               }
             />
           </ImageListItem>
-        ))} */}
+        ))} 
       </ImageList>
-    </div>
-    <span className={classes.listIcon}>
+      <span className={classes.listIcon}>
           <ChevronRightIcon />
         </span>
+    </div>
+
       </div>
     </div>
   )
