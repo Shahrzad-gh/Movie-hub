@@ -1,22 +1,36 @@
 import { searchConstants } from './Types'
 import axios from "axios";
 
-const APIKEY = "51108daeac3575a1c06f7c1391cae48e"
+const APIKEY = process.env.REACT_APP_API_KEY
 
-export const fetchPopular = () => {
+export const fetchPopularMovie = () => {
   return async (dispatch) => {
-    console.log(APIKEY)
     try {
-      const res = await axios.get(`https://api.themoviedb.org/3/trending/all/day?api_key=${APIKEY}`)
-      console.log(res)
+      const res = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${APIKEY}`)
       dispatch({
-        type: searchConstants.FETCH_POPULAR_SUCCESS,
+        type: searchConstants.FETCH_POPULAR_MOVIE_SUCCESS,
         payload: res.data.results
       })
     } catch (error) {
       console.log(error)
       dispatch({
-        type: searchConstants.FETCH_POPULAR_FAILURE,
+        type: searchConstants.FETCH_POPULAR_MOVIE_FAILURE,
+      })
+    }
+  }
+}
+export const fetchPopularTv = () => {
+  return async (dispatch) => {
+    try {
+      const res = await axios.get(`https://api.themoviedb.org/3/tv/popular?api_key=${APIKEY}`)
+      dispatch({
+        type: searchConstants.FETCH_POPULAR_TV_SUCCESS,
+        payload: res.data.results
+      })
+    } catch (error) {
+      console.log(error)
+      dispatch({
+        type: searchConstants.FETCH_POPULAR_TV_FAILURE,
       })
     }
   }
