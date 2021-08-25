@@ -12,7 +12,7 @@ import { fetchPopularMovie } from "../redux/actions/index"
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
+    //display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     overflow: 'hidden',
@@ -32,7 +32,22 @@ const useStyles = makeStyles((theme) => ({
   },
   listIcon:{
     color: '#A8DADC'
-  }
+  },
+  textStyle:{
+    fontFamily:'Noto Sans JP', 
+    color: 'white',
+    textAlign: 'left',
+    paddingLeft: '5px'
+  },
+  scroll:{
+    width: '100%',
+    height: 'auto',
+    overflow: 'auto',
+    outline: 'none',
+    overflowY: 'hidden',
+    paddingBottom: '15px',
+    scrollbarWidth: 'none',
+    }
 }));
 
 function PopularMovies() {
@@ -49,9 +64,10 @@ function PopularMovies() {
   return (
     <div className={classes.root}>
       <div>
+      <p className={classes.textStyle}>{"Movies"}</p>
       <div className={classes.root}>
       <ImageList className={classes.imageList} cols={6.5}>
-        {search.popular.movies && search.popular.movies.map((item) => (
+        {search.movies && search.movies.map((item) => (
           <ImageListItem className={classes.scroll} key={item.id}>
             <img src={`https://image.tmdb.org/t/p/w500${item.backdrop_path}`}/>
             <ImageListItemBar
