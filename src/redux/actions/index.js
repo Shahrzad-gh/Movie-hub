@@ -19,6 +19,7 @@ export const fetchPopularMovie = () => {
     }
   }
 }
+
 export const fetchPopularTv = () => {
   return async (dispatch) => {
     try {
