@@ -1,12 +1,11 @@
 import React from 'react'
 
 function Header() {
-  handleRandomImage = () => {
-    return src
-  }
+  // handleRandomImage = () => {
+  //   return src
+  // }
   return (
     <div>
-      <img src={handleRandomImage} />
     </div>
   )
 }

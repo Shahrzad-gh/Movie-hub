@@ -7,7 +7,6 @@ import ImageListItem from '@material-ui/core/ImageListItem';
 import ImageListItemBar from '@material-ui/core/ImageListItemBar';
 import IconButton from '@material-ui/core/IconButton';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
-
 import { fetchPopularMovie } from "../redux/actions/index"
 
 const useStyles = makeStyles((theme) => ({
@@ -18,10 +17,12 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
     backgroundColor: "#1D3557"
     },
-  imageList: {
-    flexWrap: 'nowrap',
-    // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
-    transform: 'translateZ(0)',
+    imageList: {
+      flexWrap: "nowrap",
+      // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+      "&:hover $img": {
+        transform: "scale(0.5)"
+      }
   },
   title: {
     color: theme.palette.primary.light,
@@ -40,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: '5px'
   },
   scroll:{
+    flexWrap: 'nowrap',
     width: '100%',
     height: 'auto',
     overflow: 'auto',
@@ -47,6 +49,9 @@ const useStyles = makeStyles((theme) => ({
     overflowY: 'hidden',
     paddingBottom: '15px',
     scrollbarWidth: 'none',
+    '&::-webkit-scrollbar': {
+      display: 'none'
+    },
     }
 }));
 
@@ -63,13 +68,13 @@ function PopularMovies() {
 
   return (
     <div className={classes.root}>
-      <div>
+           <div>
       <p className={classes.textStyle}>{"Movies"}</p>
       <div className={classes.root}>
-      <ImageList className={classes.imageList} cols={6.5}>
+      <ImageList className={classes.scroll} cols={6.5}>
         {search.movies && search.movies.map((item) => (
-          <ImageListItem className={classes.scroll} key={item.id}>
-            <img src={`https://image.tmdb.org/t/p/w500${item.backdrop_path}`}/>
+          <ImageListItem className={classes.imageList} key={item.id}>
+            <img alt={item.title} src={`https://image.tmdb.org/t/p/w500${item.backdrop_path}`}/>
             <ImageListItemBar
               title={item.title}
               classes={{
@@ -85,9 +90,6 @@ function PopularMovies() {
           </ImageListItem>
         ))} 
       </ImageList>
-      <span className={classes.listIcon}>
-          <ChevronRightIcon />
-        </span>
     </div>
 
       </div>
