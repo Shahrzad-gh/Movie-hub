@@ -7,7 +7,7 @@ import Header from "./Header"
 function Landing() {
  return (
    <div>
-     <Header/>
+  <Header/>
   <PopularMovies />
   <PopularTvs />
   </div>

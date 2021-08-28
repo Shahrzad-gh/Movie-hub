@@ -1,11 +1,11 @@
 import React from 'react'
 import {makeStyles} from "@material-ui/core/styles"
 import poster from "../poster.jpg"
-
+import Navbar from '../components/Navbar';
 const useStyles = makeStyles(()=> ({
   root: {
     display: 'block',
-    height : '300px',
+    height : '100vh',
     overflow: 'hidden',
   },
   posterStyle:{
@@ -20,9 +20,12 @@ function Header() {
   //   return src
   // }
   return (
+    <>
+    <Navbar />
     <div className={classes.root}>
       <img alt="poster" src={poster} className={classes.posterStyle}/>
     </div>
+    </>
   )
 }
 
