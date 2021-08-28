@@ -10,7 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import { fetchPopularMovie } from "../redux/actions/index"
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     //display: 'flex',
     flexWrap: 'wrap',
@@ -56,7 +56,10 @@ const useStyles = makeStyles((theme) => ({
   },
   horizonMenu:{
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
+    },
+    iconStyle: {
+      color: '#A8DADC'
     }
 }));
 
@@ -64,12 +67,25 @@ function PopularMovies() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const search = useSelector(state => state.search)
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const handleScrollToLeft = (e) => {
+    setCurrentSlide((prev) => {
+      return prev + 1 === search.movies.length ? 0 : currentSlide + 1;
+    });
+  }
+
+  const handleScrollToRight = (e) => {
+    setCurrentSlide((prev) => {
+      return prev === 0 ? search.movies.length - 1 : currentSlide - 1;
+    });
+  }
 
   useEffect(() => {
     dispatch(fetchPopularMovie())
   }, [])
 
-  console.log(search.popular)
+  console.log(search.movies)
 
   return (
     <div className={classes.root}>
@@ -77,7 +93,7 @@ function PopularMovies() {
       <p className={classes.textStyle}>{"Movies"}</p>
       <div className={classes.horizonMenu}>
       <div>
-            <ChevronLeftIcon />
+            <ChevronLeftIcon className={classes.iconStyle} onClick={handleScrollToLeft}/>
           </div>
       <ImageList className={classes.scroll} cols={6.5}>
         {search.movies && search.movies.map((item) => (
@@ -99,8 +115,8 @@ function PopularMovies() {
         ))} 
       </ImageList>
       <div>
-            <ChevronRightIcon />
-          </div>
+            <ChevronRightIcon className={classes.iconStyle} onClick={handleScrollToRight}/>
+      </div>
     </div>
 
       </div>

@@ -58,19 +58,35 @@ const useStyles = makeStyles((theme) => ({
   horizonMenu:{
     display: 'flex',
     alignItems: 'center'
-    }
+  },
+  iconStyle: {
+    color: '#A8DADC'
+  }
 }));
 
 function PopularTvs() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const search = useSelector((state) => state.search);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const handleScrollToLeft = (e) => {
+    setCurrentSlide((prev) => {
+      return prev + 1 === search.movies.length ? 0 : currentSlide + 1;
+    });
+  }
+
+  const handleScrollToRight = (e) => {
+    setCurrentSlide((prev) => {
+      return prev === 0 ? search.movies.length - 1 : currentSlide - 1;
+    });
+  }
 
   useEffect(() => {
     dispatch(fetchPopularTv());
   }, []);
 
-  console.log(search.popular);
+  console.log(search.tvs);
 
   return (
     <div className={classes.root}>
@@ -78,7 +94,7 @@ function PopularTvs() {
         <p className={classes.textStyle}>{"Tvs"}</p>
         <div className={classes.horizonMenu}>
           <div>
-            <ChevronLeftIcon />
+            <ChevronLeftIcon className={classes.iconStyle} onClick={handleScrollToLeft}/>
           </div>
           <ImageList className={classes.scroll} cols={6.5}>
             {search.tvs &&
@@ -104,7 +120,7 @@ function PopularTvs() {
               ))}
           </ImageList>
           <div>
-            <ChevronRightIcon />
+            <ChevronRightIcon className={classes.iconStyle} onClick={handleScrollToRight}/>
           </div>
         </div>
       </div>
