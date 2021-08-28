@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { makeStyles } from '@material-ui/core/styles';
 import ImageList from '@material-ui/core/ImageList';
 import ImageListItem from '@material-ui/core/ImageListItem';
@@ -21,15 +22,15 @@ const useStyles = makeStyles((theme) => ({
       flexWrap: "nowrap",
       // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
       "&:hover $img": {
-        transform: "scale(0.5)"
+        opacity: '0.5'
       }
   },
   title: {
-    color: theme.palette.primary.light,
+    color:"#a8dadc",
   },
   titleBar: {
     background:
-      'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+      'linear-gradient(to top, #3f51b5 0%, #1d355761 70%, #a8dadc05 100%)',
   },
   listIcon:{
     color: '#A8DADC'
@@ -51,7 +52,11 @@ const useStyles = makeStyles((theme) => ({
     scrollbarWidth: 'none',
     '&::-webkit-scrollbar': {
       display: 'none'
-    },
+    }
+  },
+  horizonMenu:{
+    display: 'flex',
+    alignItems: 'center'
     }
 }));
 
@@ -68,9 +73,12 @@ function PopularMovies() {
 
   return (
     <div className={classes.root}>
-           <div>
+    <div>
       <p className={classes.textStyle}>{"Movies"}</p>
-      <div className={classes.root}>
+      <div className={classes.horizonMenu}>
+      <div>
+            <ChevronLeftIcon />
+          </div>
       <ImageList className={classes.scroll} cols={6.5}>
         {search.movies && search.movies.map((item) => (
           <ImageListItem className={classes.imageList} key={item.id}>
@@ -90,6 +98,9 @@ function PopularMovies() {
           </ImageListItem>
         ))} 
       </ImageList>
+      <div>
+            <ChevronRightIcon />
+          </div>
     </div>
 
       </div>
