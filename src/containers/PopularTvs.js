@@ -8,8 +8,15 @@ import ImageListItem from "@material-ui/core/ImageListItem";
 import ImageListItemBar from "@material-ui/core/ImageListItemBar";
 import IconButton from "@material-ui/core/IconButton";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
-
+import Carousel from "react-elastic-carousel"
 import { fetchPopularTv } from "../redux/actions/index";
+
+const breakPoints = [
+  { width: 1, itemsToShow: 2 },
+  { width: 550, itemsToShow: 3 },
+  { width: 768, itemsToShow: 5 },
+  { width: 1200, itemsToShow: 6 },
+];
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -70,18 +77,6 @@ function PopularTvs() {
   const search = useSelector((state) => state.search);
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const handleScrollToLeft = (e) => {
-    setCurrentSlide((prev) => {
-      return prev + 1 === search.movies.length ? 0 : currentSlide + 1;
-    });
-  }
-
-  const handleScrollToRight = (e) => {
-    setCurrentSlide((prev) => {
-      return prev === 0 ? search.movies.length - 1 : currentSlide - 1;
-    });
-  }
-
   useEffect(() => {
     dispatch(fetchPopularTv());
   }, []);
@@ -90,16 +85,12 @@ function PopularTvs() {
 
   return (
     <div className={classes.root}>
-      <div>
-        <p className={classes.textStyle}>{"Tvs"}</p>
-        <div className={classes.horizonMenu}>
-          <div>
-            <ChevronLeftIcon className={classes.iconStyle} onClick={handleScrollToLeft}/>
-          </div>
-          <ImageList className={classes.scroll} cols={6.5}>
-            {search.tvs &&
+      <p className={classes.textStyle}>{"Tvs"}</p>
+      <Carousel breakPoints={breakPoints}>
+      {search.tvs &&
               search.tvs.map((item) => (
-                <ImageListItem className={classes.imageList} key={item.id}>
+      <div>
+            <ImageListItem className={classes.imageList} key={item.id}>
                   <img
                   alt={item.name}
                     src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
@@ -117,14 +108,43 @@ function PopularTvs() {
                     }
                   />
                 </ImageListItem>
-              ))}
-          </ImageList>
-          <div>
-            <ChevronRightIcon className={classes.iconStyle} onClick={handleScrollToRight}/>
           </div>
-        </div>
-      </div>
-    </div>
+              ))}
+      </Carousel>
+</div>
+      //   <div className={classes.horizonMenu}>
+      //     <div>
+      //       <ChevronLeftIcon className={classes.iconStyle} onClick={handleScrollToLeft}/>
+      //     </div>
+      //     <ImageList className={classes.scroll} cols={6.5}>
+      //       {search.tvs &&
+      //         search.tvs.map((item) => (
+      //           <ImageListItem className={classes.imageList} key={item.id}>
+      //             <img
+      //             alt={item.name}
+      //               src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
+      //             />
+      //             <ImageListItemBar
+      //               title={item.name}
+      //               classes={{
+      //                 root: classes.titleBar,
+      //                 title: classes.title,
+      //               }}
+      //               actionIcon={
+      //                 <IconButton aria-label={`star ${item.name}`}>
+      //                   <StarBorderIcon className={classes.title} />
+      //                 </IconButton>
+      //               }
+      //             />
+      //           </ImageListItem>
+      //         ))}
+      //     </ImageList>
+      //     <div>
+      //       <ChevronRightIcon className={classes.iconStyle} onClick={handleScrollToRight}/>
+      //     </div>
+      //   </div>
+      // </div>
+    //</div>
   );
 }
 
