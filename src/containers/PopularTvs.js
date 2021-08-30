@@ -98,7 +98,7 @@ function PopularTvs() {
   return (
     <div className={classes.root}>
       <div>
-        <p className={classes.textStyle}>{"Movies"}</p>
+        <p className={classes.textStyle}>{"Tvs"}</p>
         <div className={classes.horizonMenu}>
           <div>
             <ChevronLeftIcon

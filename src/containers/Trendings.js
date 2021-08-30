@@ -99,8 +99,8 @@ function PopularMovies() {
             />
           </div>
           <ImageList className={classes.scroll} cols={6.5}>
-            {search.movies &&
-              search.movies.map((item) => (
+            {search.trending &&
+              search.trending.map((item) => (
                 <ImageListItem className={classes.imageList} key={item.id}>
                   <img
                     alt={item.title}
