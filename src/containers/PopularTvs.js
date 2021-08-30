@@ -8,7 +8,7 @@ import ImageListItem from "@material-ui/core/ImageListItem";
 import ImageListItemBar from "@material-ui/core/ImageListItemBar";
 import IconButton from "@material-ui/core/IconButton";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
-import Carousel from "react-elastic-carousel"
+import Carousel from "react-elastic-carousel";
 import { fetchPopularTv } from "../redux/actions/index";
 
 const breakPoints = [
@@ -30,21 +30,21 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: "nowrap",
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     "&:hover $img": {
-      opacity: '0.5',
-    }
+      opacity: "0.5",
+    },
   },
   title: {
-    color:"#a8dadc",
+    color: "#a8dadc",
   },
   titleBar: {
     background:
-      "linear-gradient(to top, #3f51b5 0%, #1d355761 70%, #a8dadc05 100%)"
+      "linear-gradient(to top, #3f51b5 0%, #1d355761 70%, #a8dadc05 100%)",
   },
   listIcon: {
     color: "#A8DADC",
   },
   textStyle: {
-    color: 'white',
+    color: "white",
     fontFamily: "Noto Sans JP",
     textAlign: "left",
     paddingLeft: "5px",
@@ -62,13 +62,13 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
-  horizonMenu:{
-    display: 'flex',
-    alignItems: 'center'
+  horizonMenu: {
+    display: "flex",
+    alignItems: "center",
   },
   iconStyle: {
-    color: '#A8DADC'
-  }
+    color: "#A8DADC",
+  },
 }));
 
 function PopularTvs() {
@@ -76,6 +76,18 @@ function PopularTvs() {
   const dispatch = useDispatch();
   const search = useSelector((state) => state.search);
   const [currentSlide, setCurrentSlide] = useState(0);
+
+  const handleScrollToLeft = (e) => {
+    setCurrentSlide((prev) => {
+      return prev + 1 === search.movies.length ? 0 : currentSlide + 1;
+    });
+  };
+
+  const handleScrollToRight = (e) => {
+    setCurrentSlide((prev) => {
+      return prev === 0 ? search.movies.length - 1 : currentSlide - 1;
+    });
+  };
 
   useEffect(() => {
     dispatch(fetchPopularTv());
@@ -85,14 +97,21 @@ function PopularTvs() {
 
   return (
     <div className={classes.root}>
-      <p className={classes.textStyle}>{"Tvs"}</p>
-      <Carousel breakPoints={breakPoints}>
-      {search.tvs &&
-              search.tvs.map((item) => (
       <div>
-            <ImageListItem className={classes.imageList} key={item.id}>
+        <p className={classes.textStyle}>{"Movies"}</p>
+        <div className={classes.horizonMenu}>
+          <div>
+            <ChevronLeftIcon
+              className={classes.iconStyle}
+              onClick={handleScrollToLeft}
+            />
+          </div>
+          <ImageList className={classes.scroll} cols={6.5}>
+            {search.tvs &&
+              search.tvs.map((item) => (
+                <ImageListItem className={classes.imageList} key={item.id}>
                   <img
-                  alt={item.name}
+                    alt={item.name}
                     src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
                   />
                   <ImageListItemBar
@@ -108,43 +127,17 @@ function PopularTvs() {
                     }
                   />
                 </ImageListItem>
-          </div>
               ))}
-      </Carousel>
-</div>
-      //   <div className={classes.horizonMenu}>
-      //     <div>
-      //       <ChevronLeftIcon className={classes.iconStyle} onClick={handleScrollToLeft}/>
-      //     </div>
-      //     <ImageList className={classes.scroll} cols={6.5}>
-      //       {search.tvs &&
-      //         search.tvs.map((item) => (
-      //           <ImageListItem className={classes.imageList} key={item.id}>
-      //             <img
-      //             alt={item.name}
-      //               src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
-      //             />
-      //             <ImageListItemBar
-      //               title={item.name}
-      //               classes={{
-      //                 root: classes.titleBar,
-      //                 title: classes.title,
-      //               }}
-      //               actionIcon={
-      //                 <IconButton aria-label={`star ${item.name}`}>
-      //                   <StarBorderIcon className={classes.title} />
-      //                 </IconButton>
-      //               }
-      //             />
-      //           </ImageListItem>
-      //         ))}
-      //     </ImageList>
-      //     <div>
-      //       <ChevronRightIcon className={classes.iconStyle} onClick={handleScrollToRight}/>
-      //     </div>
-      //   </div>
-      // </div>
-    //</div>
+          </ImageList>
+          <div>
+            <ChevronRightIcon
+              className={classes.iconStyle}
+              onClick={handleScrollToRight}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
