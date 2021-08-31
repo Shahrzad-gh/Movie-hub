@@ -8,15 +8,8 @@ import ImageListItem from "@material-ui/core/ImageListItem";
 import ImageListItemBar from "@material-ui/core/ImageListItemBar";
 import IconButton from "@material-ui/core/IconButton";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
-import Carousel from "react-elastic-carousel";
 import { fetchPopularTv } from "../redux/actions/index";
-
-const breakPoints = [
-  { width: 1, itemsToShow: 2 },
-  { width: 550, itemsToShow: 3 },
-  { width: 768, itemsToShow: 5 },
-  { width: 1200, itemsToShow: 6 },
-];
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -109,23 +102,32 @@ function PopularTvs() {
           <ImageList className={classes.scroll} cols={6.5}>
             {search.tvs &&
               search.tvs.map((item) => (
-                <ImageListItem className={classes.imageList} key={item.id}>
-                  <img
-                    alt={item.name}
-                    src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
-                  />
-                  <ImageListItemBar
-                    title={item.name}
-                    classes={{
-                      root: classes.titleBar,
-                      title: classes.title,
-                    }}
-                    actionIcon={
-                      <IconButton aria-label={`star ${item.name}`}>
-                        <StarBorderIcon className={classes.title} />
-                      </IconButton>
-                    }
-                  />
+                <ImageListItem key={item.id}>
+                  <div>
+                    <Link
+                      to={{
+                        pathname: `/Details/${item.id}`,
+                        state: { data: item },
+                      }}
+                    >
+                      <img
+                        alt={item.name}
+                        src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
+                      />
+                      <ImageListItemBar
+                        title={item.name}
+                        classes={{
+                          root: classes.titleBar,
+                          title: classes.title,
+                        }}
+                        actionIcon={
+                          <IconButton aria-label={`star ${item.name}`}>
+                            <StarBorderIcon className={classes.title} />
+                          </IconButton>
+                        }
+                      />
+                    </Link>
+                  </div>
                 </ImageListItem>
               ))}
           </ImageList>

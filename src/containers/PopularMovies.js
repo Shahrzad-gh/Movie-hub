@@ -21,6 +21,7 @@ const useStyles = makeStyles(() => ({
   },
   imageList: {
     flexWrap: "nowrap",
+    backgroundSize: "cover",
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     "&:hover $img": {
       opacity: "0.5",
@@ -102,13 +103,13 @@ function PopularMovies() {
           <ImageList className={classes.scroll} cols={6.5}>
             {search.movies &&
               search.movies.map((item) => (
-                <Link
-                  to={{
-                    pathname: `/Details/${item.id}`,
-                    state: { data: item },
-                  }}
-                >
-                  <ImageListItem className={classes.imageList} key={item.id}>
+                <ImageListItem className={classes.imageList} key={item.id}>
+                  <Link
+                    to={{
+                      pathname: `/Details/${item.id}`,
+                      state: { data: item },
+                    }}
+                  >
                     <img
                       alt={item.title}
                       src={`https://image.tmdb.org/t/p/w500${item.backdrop_path}`}
@@ -125,8 +126,8 @@ function PopularMovies() {
                         </IconButton>
                       }
                     />
-                  </ImageListItem>
-                </Link>
+                  </Link>
+                </ImageListItem>
               ))}
           </ImageList>
           <div>
