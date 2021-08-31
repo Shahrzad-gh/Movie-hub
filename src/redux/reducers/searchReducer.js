@@ -4,6 +4,7 @@ const initState = {
   movies: [],
   tvs: [],
   trending: [],
+  videoDetails: {},
 };
 
 export default (state = initState, action) => {
@@ -22,6 +23,11 @@ export default (state = initState, action) => {
       return (state = {
         ...state,
         trending: action.payload,
+      });
+    case searchConstants.FETCH_TRAILER_SUCCESS:
+      return (state = {
+        ...state,
+        videoDetails: action.payload,
       });
     default:
       return state;

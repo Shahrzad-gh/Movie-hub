@@ -59,3 +59,20 @@ export const fetchTrendings = () => {
     }
   };
 };
+
+export const fetchTrailer = (data) => {
+  const { id } = data.params;
+  return async (dispatch) => {
+    try {
+      const res = await axios.get(
+        `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${APIKEY}`
+      );
+      dispatch({
+        type: searchConstants.FETCH_TRAILER_SUCCESS,
+        payload: res.data.results[0],
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
