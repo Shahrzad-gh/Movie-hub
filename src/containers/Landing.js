@@ -13,7 +13,6 @@ function Landing() {
       <PopularMovies />
       <PopularTvs />
       <Trendings />
-      <Footer />
     </div>
   );
 }
