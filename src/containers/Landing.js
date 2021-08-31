@@ -4,6 +4,7 @@ import PopularMovies from "./PopularMovies";
 import PopularTvs from "./PopularTvs";
 import Header from "./Header";
 import Trendings from "./Trendings";
+import Footer from "../components/Footer";
 
 function Landing() {
   return (
@@ -12,6 +13,7 @@ function Landing() {
       <PopularMovies />
       <PopularTvs />
       <Trendings />
+      <Footer />
     </div>
   );
 }
