@@ -9,6 +9,7 @@ import ImageListItemBar from "@material-ui/core/ImageListItemBar";
 import IconButton from "@material-ui/core/IconButton";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 import { fetchPopularMovie } from "../redux/actions/index";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -101,24 +102,31 @@ function PopularMovies() {
           <ImageList className={classes.scroll} cols={6.5}>
             {search.movies &&
               search.movies.map((item) => (
-                <ImageListItem className={classes.imageList} key={item.id}>
-                  <img
-                    alt={item.title}
-                    src={`https://image.tmdb.org/t/p/w500${item.backdrop_path}`}
-                  />
-                  <ImageListItemBar
-                    title={item.title}
-                    classes={{
-                      root: classes.titleBar,
-                      title: classes.title,
-                    }}
-                    actionIcon={
-                      <IconButton aria-label={`star ${item.title}`}>
-                        <StarBorderIcon className={classes.title} />
-                      </IconButton>
-                    }
-                  />
-                </ImageListItem>
+                <Link
+                  to={{
+                    pathname: `/Details/${item.id}`,
+                    state: { data: item },
+                  }}
+                >
+                  <ImageListItem className={classes.imageList} key={item.id}>
+                    <img
+                      alt={item.title}
+                      src={`https://image.tmdb.org/t/p/w500${item.backdrop_path}`}
+                    />
+                    <ImageListItemBar
+                      title={item.title}
+                      classes={{
+                        root: classes.titleBar,
+                        title: classes.title,
+                      }}
+                      actionIcon={
+                        <IconButton aria-label={`star ${item.title}`}>
+                          <StarBorderIcon className={classes.title} />
+                        </IconButton>
+                      }
+                    />
+                  </ImageListItem>
+                </Link>
               ))}
           </ImageList>
           <div>
