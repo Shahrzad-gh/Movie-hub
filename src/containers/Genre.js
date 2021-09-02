@@ -10,6 +10,7 @@ import ImageListItemBar from "@material-ui/core/ImageListItemBar";
 import IconButton from "@material-ui/core/IconButton";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 import { Link } from "react-router-dom";
+import { CardMedia } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -46,7 +47,6 @@ const useStyles = makeStyles(() => ({
   scroll: {
     flexWrap: "nowrap",
     width: "100%",
-    height: "auto",
     overflow: "auto",
     outline: "none",
     overflowY: "hidden",
@@ -107,17 +107,23 @@ function Genre(props) {
           <ImageList className={classes.scroll} cols={6.5}>
             {movieList &&
               movieList.map((item) => (
-                <ImageListItem className={classes.imageList} key={item.id}>
+                <ImageListItem
+                  className={classes.imageList}
+                  key={item.id}
+                  style={{ height: "fit-content" }}
+                >
                   <Link
                     to={{
                       pathname: `/Details/${item.id}`,
                       state: { data: item },
                     }}
                   >
-                    <img
-                      alt={item.title}
+                    <CardMedia
+                      component="img"
                       src={`https://image.tmdb.org/t/p/w500${item.backdrop_path}`}
+                      title={item.title}
                     />
+
                     <ImageListItemBar
                       title={item.title}
                       classes={{

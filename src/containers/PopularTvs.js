@@ -10,6 +10,7 @@ import IconButton from "@material-ui/core/IconButton";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 import { fetchPopularTv } from "../redux/actions/index";
 import { Link } from "react-router-dom";
+import { CardMedia } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,7 +46,6 @@ const useStyles = makeStyles((theme) => ({
   scroll: {
     flexWrap: "nowrap",
     width: "100%",
-    height: "auto",
     overflow: "auto",
     outline: "none",
     overflowY: "hidden",
@@ -108,9 +108,10 @@ function PopularTvs() {
                         state: { data: item },
                       }}
                     >
-                      <img
-                        alt={item.name}
+                      <CardMedia
+                        component="img"
                         src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
+                        title={item.name}
                       />
                       <ImageListItemBar
                         title={item.name}

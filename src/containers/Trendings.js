@@ -9,6 +9,8 @@ import ImageListItemBar from "@material-ui/core/ImageListItemBar";
 import IconButton from "@material-ui/core/IconButton";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 import { fetchTrendings } from "../redux/actions/index";
+import { CardMedia } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -44,7 +46,6 @@ const useStyles = makeStyles(() => ({
   scroll: {
     flexWrap: "nowrap",
     width: "100%",
-    height: "auto",
     overflow: "auto",
     outline: "none",
     overflowY: "hidden",
@@ -96,26 +97,42 @@ function PopularMovies() {
               onClick={handleScrollToLeft}
             />
           </div>
-          <ImageList className={classes.scroll} cols={6.5}>
+          <ImageList
+            className={classes.scroll}
+            cols={6.5}
+            style={{ height: "fit-content" }}
+          >
             {search.trending &&
               search.trending.map((item) => (
-                <ImageListItem className={classes.imageList} key={item.id}>
-                  <img
-                    alt={item.title}
-                    src={`https://image.tmdb.org/t/p/w500${item.backdrop_path}`}
-                  />
-                  <ImageListItemBar
-                    title={item.title}
-                    classes={{
-                      root: classes.titleBar,
-                      title: classes.title,
+                <ImageListItem
+                  className={classes.imageList}
+                  key={item.id}
+                  style={{ height: "fit-content" }}
+                >
+                  <Link
+                    to={{
+                      pathname: `/Details/${item.id}`,
+                      state: { data: item },
                     }}
-                    actionIcon={
-                      <IconButton aria-label={`star ${item.title}`}>
-                        <StarBorderIcon className={classes.title} />
-                      </IconButton>
-                    }
-                  />
+                  >
+                    <CardMedia
+                      component="img"
+                      src={`https://image.tmdb.org/t/p/w500${item.backdrop_path}`}
+                      title={item.title}
+                    />
+                    <ImageListItemBar
+                      title={item.title}
+                      classes={{
+                        root: classes.titleBar,
+                        title: classes.title,
+                      }}
+                      actionIcon={
+                        <IconButton aria-label={`star ${item.title}`}>
+                          <StarBorderIcon className={classes.title} />
+                        </IconButton>
+                      }
+                    />
+                  </Link>
                 </ImageListItem>
               ))}
           </ImageList>
