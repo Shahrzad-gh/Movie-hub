@@ -76,3 +76,18 @@ export const fetchTrailer = (data) => {
     }
   };
 };
+
+export const fetchGenres = (data) => {
+  const { genre } = data;
+  return async (dispatch) => {
+    try {
+      const res = await axios.get(``);
+      dispatch({
+        type: searchConstants.FETCH_GENRE_SUCCESS,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
