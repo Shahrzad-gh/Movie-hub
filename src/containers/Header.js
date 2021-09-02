@@ -1,6 +1,8 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import poster from "../poster.jpg";
+import { useSelector } from "react-redux";
+
 const useStyles = makeStyles(() => ({
   root: {
     display: "block",
@@ -14,13 +16,15 @@ const useStyles = makeStyles(() => ({
 
 function Header() {
   const classes = useStyles();
-  // handleRandomImage = () => {
-  //   return src
-  // }
+
   return (
     <>
       <div className={classes.root}>
-        <img alt="poster" src={poster} className={classes.posterStyle} />
+        <img
+          alt="poster"
+          //src={`https://image.tmdb.org/t/p/w500${search.movies[${handleRandomImage}].pa}`}
+          className={classes.posterStyle}
+        />
       </div>
     </>
   );
