@@ -85,9 +85,7 @@ function PopularMovies() {
 
   useEffect(() => {
     dispatch(fetchPopularMovie());
-  }, []);
-
-  console.log(search.movies);
+  }, [dispatch]);
 
   return (
     <div className={classes.root}>

@@ -84,9 +84,7 @@ function PopularTvs() {
 
   useEffect(() => {
     dispatch(fetchPopularTv());
-  }, []);
-
-  console.log(search.tvs);
+  }, [dispatch]);
 
   return (
     <div className={classes.root}>

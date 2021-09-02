@@ -83,9 +83,7 @@ function PopularMovies() {
 
   useEffect(() => {
     dispatch(fetchTrendings());
-  }, []);
-
-  console.log(search.movies);
+  }, [dispatch]);
 
   return (
     <div className={classes.root}>

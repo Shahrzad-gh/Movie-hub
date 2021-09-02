@@ -41,7 +41,7 @@ function Details(props) {
       },
     };
     dispatch(fetchTrailer(payload));
-  }, []);
+  }, [dispatch]);
 
   const content =
     props.location.state === undefined ? (
