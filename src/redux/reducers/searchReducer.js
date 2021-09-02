@@ -7,9 +7,12 @@ const initState = {
   videoDetails: {},
   genres: [],
   moviesGenre: [],
+  credits: {},
+  people: {},
 };
 
 export default (state = initState, action) => {
+  console.log("action", action.payload);
   switch (action.type) {
     case searchConstants.FETCH_POPULAR_MOVIE_SUCCESS:
       return (state = {
@@ -39,11 +42,20 @@ export default (state = initState, action) => {
     case searchConstants.FETCH_MOVIE_GENRE_SUCCESS:
       return (state = {
         ...state,
-        //moviesGenre: action.payload,
         moviesGenre: {
           ...state.moviesGenre,
           [action.payload.id]: action.payload.movies,
         },
+      });
+    case searchConstants.FETCH_CREDITS_SUCCESS:
+      return (state = {
+        ...state,
+        credits: action.payload,
+      });
+    case searchConstants.FETCH_PEOPLE_SUCCESS:
+      return (state = {
+        ...state,
+        people: { ...state.people, [action.payload.id]: action.payload },
       });
     default:
       return state;
