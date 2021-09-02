@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTrailer } from "../redux/actions/index";
+import { Redirect } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -29,9 +30,9 @@ const useStyles = makeStyles(() => ({
 function Details(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const details = props.location.state.data;
+  const details = props.location.state && props.location.state.data;
   const search = useSelector((state) => state.search);
-  const id = props.location.state.data.id;
+  const id = details && props.location.state.data.id;
 
   useEffect(() => {
     const payload = {
@@ -42,21 +43,26 @@ function Details(props) {
     dispatch(fetchTrailer(payload));
   }, []);
 
-  return (
-    <div className={classes.root}>
-      <div className={classes.responsiveIframe}>
-        <iframe
-          className={classes.video}
-          src={`https://www.youtube-nocookie.com/embed/${search.videoDetails.key}`}
-        />
+  const content =
+    props.location.state === undefined ? (
+      <Redirect to="/404" />
+    ) : (
+      <div className={classes.root}>
+        <div className={classes.responsiveIframe}>
+          <iframe
+            className={classes.video}
+            src={`https://www.youtube-nocookie.com/embed/${search.videoDetails.key}`}
+          />
+        </div>
+        <div>
+          <p>Details</p>
+          <br />
+          <p>Title : {details.title}</p>
+        </div>
       </div>
-      <div>
-        <p>Details</p>
-        <br />
-        <p>Title : {details.title}</p>
-      </div>
-    </div>
-  );
+    );
+
+  return <div>{content}</div>;
 }
 
 export default Details;
