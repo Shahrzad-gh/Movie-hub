@@ -77,14 +77,32 @@ export const fetchTrailer = (data) => {
   };
 };
 
-export const fetchGenres = (data) => {
-  const { genre } = data;
+export const fetchGenres = () => {
   return async (dispatch) => {
     try {
-      const res = await axios.get(``);
+      const res = await axios.get(
+        `https://api.themoviedb.org/3/genre/movie/list?api_key=${APIKEY}&language=en-US`
+      );
       dispatch({
         type: searchConstants.FETCH_GENRE_SUCCESS,
         payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const fetchMovieGenre = (data) => {
+  const { id } = data.params;
+  return async (dispatch) => {
+    try {
+      const res = await axios.get(
+        `https://api.themoviedb.org/3/discover/movie?api_key=${APIKEY}&with_genres=${id}`
+      );
+      dispatch({
+        type: searchConstants.FETCH_MOVIE_GENRE_SUCCESS,
+        payload: { movies: res.data.results, id },
       });
     } catch (error) {
       console.log(error);
