@@ -6,19 +6,23 @@ import { fetchTrailer } from "../redux/actions/index";
 const useStyles = makeStyles(() => ({
   root: {
     backgroundColor: "#1D3557",
-    position: "relative",
-    overflow: "hidden",
     width: "100%",
-    paddingTop: "40%",
   },
   responsiveIframe: {
-    position: "absolute",
+    position: "relative",
     top: 0,
     left: 0,
     bottom: 0,
     right: 0,
     width: "100%",
     height: "100%",
+  },
+  details: {
+    position: "absolute",
+  },
+  video: {
+    width: " 60vw",
+    height: "60vh",
   },
 }));
 
@@ -39,16 +43,19 @@ function Details(props) {
   }, []);
 
   return (
-    <>
-      <div className={classes.root}>
+    <div className={classes.root}>
+      <div className={classes.responsiveIframe}>
         <iframe
-          className={classes.responsiveIframe}
-          src={`https://www.youtube.com/embed/${search.videoDetails.key}`}
+          className={classes.video}
+          src={`https://www.youtube-nocookie.com/embed/${search.videoDetails.key}`}
         />
       </div>
-      <div>Details</div>
-      <p>Title : {details.title}</p>
-    </>
+      <div>
+        <p>Details</p>
+        <br />
+        <p>Title : {details.title}</p>
+      </div>
+    </div>
   );
 }
 
