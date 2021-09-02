@@ -8,26 +8,18 @@ import NotFound from "./components/404";
 
 function App() {
   return (
-    <>
+    <div className="App">
       <Navbar />
       <Router>
         <Switch>
-          <div className="App">
-            <Router>
-              <Route exact path="/" component={Landing}></Route>
-            </Router>
+          <Route exact path="/" component={Landing}></Route>
 
-            <Router>
-              <Route path="/Details/:id" component={Details}></Route>
-            </Router>
-            <Route>
-              <NotFound />
-            </Route>
-          </div>
+          <Route path="/Details/:id" component={Details}></Route>
+          <Route component={NotFound} />
         </Switch>
       </Router>
       <Footer />
-    </>
+    </div>
   );
 }
 
