@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
-import { makeStyles } from "@material-ui/core";
+import { CardMedia, makeStyles } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchTrailer } from "../redux/actions/index";
+import { fetchTrailer, fetchCredits } from "../redux/actions/index";
 import { Redirect } from "react-router-dom";
+import CastInfo from "./CastInfo";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -19,7 +20,7 @@ const useStyles = makeStyles(() => ({
     height: "100%",
   },
   details: {
-    position: "absolute",
+    display: "flex",
   },
   video: {
     width: " 60vw",
@@ -33,7 +34,7 @@ function Details(props) {
   const details = props.location.state && props.location.state.data;
   const search = useSelector((state) => state.search);
   const id = details && props.location.state.data.id;
-
+  console.log(search);
   useEffect(() => {
     const payload = {
       params: {
@@ -41,6 +42,7 @@ function Details(props) {
       },
     };
     dispatch(fetchTrailer(payload));
+    dispatch(fetchCredits(payload));
   }, [dispatch]);
 
   const content =
@@ -54,10 +56,29 @@ function Details(props) {
             src={`https://www.youtube-nocookie.com/embed/${search.videoDetails.key}`}
           />
         </div>
+        <div className={classes.details}>
+          <div>
+            <CardMedia
+              component="img"
+              src={`https://image.tmdb.org/t/p/w500${details.backdrop_path}`}
+              title={details.title}
+            />
+          </div>
+          <div>
+            <p>Details</p>
+            <p>Title : {details.title}</p>
+            <p> Director : </p>
+          </div>
+        </div>
         <div>
-          <p>Details</p>
-          <br />
-          <p>Title : {details.title}</p>
+          <ul>
+            {search.credits.cast &&
+              search.credits.cast.slice(0, 5).map((item) => (
+                <li key={item.id}>
+                  <CastInfo data={item} />
+                </li>
+              ))}
+          </ul>
         </div>
       </div>
     );
