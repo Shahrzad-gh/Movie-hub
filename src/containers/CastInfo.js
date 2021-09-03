@@ -29,7 +29,7 @@ function CastInfo(props) {
           src={info && `https://image.tmdb.org/t/p/w500${info.profile_path}`}
           //alt={info.name}
         />
-        <CardContent>{info.name}</CardContent>
+        <CardContent>{info && info.name}</CardContent>
       </Card>
     </div>
   );
