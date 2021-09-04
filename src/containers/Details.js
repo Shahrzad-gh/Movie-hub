@@ -21,10 +21,28 @@ const useStyles = makeStyles(() => ({
   },
   details: {
     display: "flex",
+    padding: "15px",
+    backgroundColor: "#0f1b2d",
   },
   video: {
     width: " 60vw",
     height: "60vh",
+  },
+  castList: {
+    display: "flex",
+  },
+  casts: {
+    margin: "10px",
+  },
+  posterStyle: {
+    border: "1px solid rgb(27 127 204 / 80%)",
+    width: "600",
+    height: "auto",
+  },
+  informationStyle: {
+    display: "block",
+    padding: "15px",
+    color: "#a8dadc",
   },
 }));
 
@@ -59,26 +77,25 @@ function Details(props) {
         <div className={classes.details}>
           <div>
             <CardMedia
+              className={classes.posterStyle}
               component="img"
               src={`https://image.tmdb.org/t/p/w500${details.backdrop_path}`}
               title={details.title}
             />
           </div>
-          <div>
+          <div className={classes.informationStyle}>
             <p>Details</p>
             <p>Title : {details.title}</p>
             <p> Director : </p>
           </div>
         </div>
-        <div>
-          <ul>
-            {search.credits.cast &&
-              search.credits.cast.slice(0, 5).map((item) => (
-                <li key={item.id}>
-                  <CastInfo data={item} />
-                </li>
-              ))}
-          </ul>
+        <div className={classes.castList}>
+          {search.credits.cast &&
+            search.credits.cast.slice(0, 5).map((item) => (
+              <div key={item.id} className={classes.casts}>
+                <CastInfo data={item} />
+              </div>
+            ))}
         </div>
       </div>
     );
