@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchTrailer, fetchCredits } from "../redux/actions/index";
 import { Redirect } from "react-router-dom";
 import CastInfo from "./CastInfo";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -52,16 +55,17 @@ function Details(props) {
   const details = props.location.state && props.location.state.data;
   const search = useSelector((state) => state.search);
   const id = details && props.location.state.data.id;
-  console.log(search);
+
   useEffect(() => {
     const payload = {
       params: {
         id,
+        cat: details.media_type ? details.media_type : "movie",
       },
     };
     dispatch(fetchTrailer(payload));
     dispatch(fetchCredits(payload));
-  }, [dispatch]);
+  }, [dispatch, id, details.media_type]);
 
   const content =
     props.location.state === undefined ? (
@@ -72,6 +76,7 @@ function Details(props) {
           <iframe
             className={classes.video}
             src={`https://www.youtube-nocookie.com/embed/${search.videoDetails.key}`}
+            title={details.title}
           />
         </div>
         <div className={classes.details}>
@@ -87,6 +92,29 @@ function Details(props) {
             <p>Details</p>
             <p>Title : {details.title}</p>
             <p> Director : </p>
+            <div>
+              <p>Popularity</p>
+              <Box position="relative" display="inline-flex">
+                <CircularProgress
+                  variant="determinate"
+                  value={details.vote_average * 10}
+                />
+                <Box
+                  top={0}
+                  left={0}
+                  bottom={0}
+                  right={0}
+                  position="absolute"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  <Typography variant="caption" component="div" color="inherit">
+                    {details.vote_average * 10}%
+                  </Typography>
+                </Box>
+              </Box>
+            </div>
           </div>
         </div>
         <div className={classes.castList}>
