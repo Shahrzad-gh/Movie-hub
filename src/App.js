@@ -1,6 +1,6 @@
 import "./App.css";
 import Landing from "./containers/Landing";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Details from "./containers/Details";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
