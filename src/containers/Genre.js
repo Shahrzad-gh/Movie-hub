@@ -79,7 +79,7 @@ function Genre(props) {
       },
     };
     dispatch(fetchMovieGenre(payload));
-  }, [dispatch]);
+  }, [dispatch, props.data.id]);
 
   const handleScrollToLeft = (e) => {
     setCurrentSlide((prev) => {

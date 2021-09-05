@@ -16,7 +16,6 @@ function CastInfo(props) {
   const { id } = props.data;
   const search = useSelector((state) => state.search);
   const info = search.people[id];
-  console.log(`info[${id}]`, info);
 
   useEffect(() => {
     const payload = {
@@ -25,7 +24,7 @@ function CastInfo(props) {
       },
     };
     dispatch(fetchCastInfo(payload));
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   return (
     <div>
