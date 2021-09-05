@@ -12,7 +12,6 @@ const initState = {
 };
 
 export default (state = initState, action) => {
-  console.log("action", action.payload);
   switch (action.type) {
     case searchConstants.FETCH_POPULAR_MOVIE_SUCCESS:
       return (state = {

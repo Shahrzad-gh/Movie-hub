@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import poster from "../poster.jpg";
-import { useSelector } from "react-redux";
+//import poster from "../poster.jpg";
+//import { useSelector } from "react-redux";
 
 const useStyles = makeStyles(() => ({
   root: {
