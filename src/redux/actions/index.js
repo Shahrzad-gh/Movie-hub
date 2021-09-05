@@ -112,13 +112,12 @@ export const fetchMovieGenre = (data) => {
 //
 
 export const fetchCredits = (data) => {
-  const { id } = data.params;
+  const { id, cat } = data.params;
   return async (dispatch) => {
     try {
       const res = await axios.get(
-        `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${APIKEY}`
+        `https://api.themoviedb.org/3/${cat}/${id}/credits?api_key=${APIKEY}`
       );
-      console.log("credits", res);
       dispatch({
         type: searchConstants.FETCH_CREDITS_SUCCESS,
         payload: res.data,
