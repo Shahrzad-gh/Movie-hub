@@ -7,6 +7,7 @@ import CastInfo from "./CastInfo";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import Reviews from "./Reviews";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -46,6 +47,7 @@ const useStyles = makeStyles(() => ({
     display: "block",
     padding: "15px",
     color: "#a8dadc",
+    textAlign: "left",
   },
 }));
 
@@ -89,7 +91,9 @@ function Details(props) {
             />
           </div>
           <div className={classes.informationStyle}>
-            <p>Details</p>
+            <p>
+              <b>Details</b>
+            </p>
             <p>Title : {details.title}</p>
             <p> Director : </p>
             <div>
@@ -115,6 +119,10 @@ function Details(props) {
                 </Box>
               </Box>
             </div>
+            <div>
+              <p>Plot:</p>
+              <p>{details.overview}</p>
+            </div>
           </div>
         </div>
         <div className={classes.castList}>
@@ -124,6 +132,9 @@ function Details(props) {
                 <CastInfo data={item} />
               </div>
             ))}
+        </div>
+        <div>
+          <Reviews data={details.id} />
         </div>
       </div>
     );
