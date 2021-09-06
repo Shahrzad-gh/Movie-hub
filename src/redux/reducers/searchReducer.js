@@ -9,6 +9,8 @@ const initState = {
   moviesGenre: [],
   credits: {},
   people: {},
+  reviews: [],
+  reviewDetails: {},
 };
 
 export default (state = initState, action) => {
@@ -55,6 +57,11 @@ export default (state = initState, action) => {
       return (state = {
         ...state,
         people: { ...state.people, [action.payload.id]: action.payload },
+      });
+    case searchConstants.FETCH_REVIEWS_SUCCESS:
+      return (state = {
+        ...state,
+        reviews: action.payload,
       });
     default:
       return state;

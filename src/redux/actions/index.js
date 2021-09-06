@@ -144,3 +144,20 @@ export const fetchCastInfo = (data) => {
     }
   };
 };
+
+export const fetchReviews = (data) => {
+  const { id } = data.params;
+  return async (dispatch) => {
+    try {
+      const res = await axios.get(
+        `https://api.themoviedb.org/3/movie/${id}/reviews?api_key=${APIKEY}&language=en-US&page=1`
+      );
+      dispatch({
+        type: searchConstants.FETCH_REVIEWS_SUCCESS,
+        payload: res.data.results,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
