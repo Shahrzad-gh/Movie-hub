@@ -17,7 +17,7 @@ function Reviews(props) {
   }, []);
   return (
     <div>
-      {search.reviews.map((item) => (
+      {search.reviews.slice(0, 2).map((item) => (
         <ReviewCard key={item.id} data={item} />
       ))}
     </div>

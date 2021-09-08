@@ -97,7 +97,7 @@ function Details(props) {
             <p>Title : {details.title}</p>
             <p> Director : </p>
             <div>
-              <p>Popularity</p>
+              <p>User Score</p>
               <Box position="relative" display="inline-flex">
                 <CircularProgress
                   variant="determinate"
